@@ -1,5 +1,8 @@
 import React, { useState, Dispatch, SetStateAction } from "react";
 import Todo from "../../models/todo";
+import {useDispatch} from "react-redux"
+import { AppDispatch } from "../../store";
+import { addTodoAction } from "../../store/todoSlice"
 
 interface Props {
   addTodo: (todo: Todo) => void;
@@ -7,6 +10,8 @@ interface Props {
 
 const AddTodo: React.FC<Props> = ({ addTodo }) => {
   const [input, setInput] = useState<string>("");
+
+  const dispatch = useDispatch<AppDispatch>()
 
   const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
@@ -16,6 +21,13 @@ const AddTodo: React.FC<Props> = ({ addTodo }) => {
         title: input,
         is_done: false,
       });
+      // dispatch(addTodoAction({
+      //     id: Date.now(),
+      //     title: input,
+      //     is_done: false,
+      //   }))
+
+
       setInput("");
     }
   };
